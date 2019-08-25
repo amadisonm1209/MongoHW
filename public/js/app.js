@@ -88,11 +88,10 @@ $("#savenote").on("click",  function() {
 $(".deleteNote").on("click", function() {
 
   var noteId = $(this).attr("data-note-id");
-  var articleId = $(this).attr("data-article-id");
 
   $.ajax({
       method: "DELETE",
-      url: "/notes/" + noteId + "/" + articleId
+      url: "/notes/" + noteId
   }).done(function(data) {
       console.log(data)
       $(".modal").modal("hide");
