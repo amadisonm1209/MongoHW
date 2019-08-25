@@ -1,0 +1,28 @@
+<div class="modal" id="noteModal{{this._id}}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="modal-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Notes for {{this.title}}</h4>
+            </div>
+            <div class="modal-body">
+                {{#if this.note}}
+                    {{#each this.note}}
+                        <div class="saved-notes">
+                            <div class="collection">
+                                <p class="previousNotes collection-item"> {{this.body}}</p>
+                                <button type="button" class="btn deleteNote" data-note-id={{this._id}} data-article-id={{this.article}}>X</button>
+                            </div>
+                        </div>
+                    {{/each}}
+                {{else}}
+                {{/if}}
+                <div class="form-group">
+                    <textarea id="noteInput{{this._id}}" class="note-input" rows="4" placeholder="New Note"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" id="savenote" data-id={{this._id}}>Save Note</button>
+            </div>
+        </div>
+    </div>
+</div>

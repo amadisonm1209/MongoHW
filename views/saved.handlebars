@@ -1,0 +1,23 @@
+{{#if article}}
+{{#each article}}
+<div class="container">
+    <div class="collection">
+        <div class="collection-item">
+            <h4>{{this.title}}</h4>
+            <p> {{this.summary}}</p>
+            <a href={{this.link}} target="_blank">{{this.link}}</a>
+            <br>
+            <br>
+            <button data-target="noteModal{{this._id}}" class="btn-small modal-trigger">Article Note</button>
+            <button type="button" class="btn btn-small delete" data-id={{this._id}}>Delete Article</button>
+        </div>
+    </div>
+    {{> noteModal }}
+    {{/each}}
+</div>
+{{else}}
+<div class="articles container">
+    <h4 class="center-align">Nothing to see here!</h4>
+    <p class="center-align">Save an article to add a note!</p>
+</div>
+{{/if}}

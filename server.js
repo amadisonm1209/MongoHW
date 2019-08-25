@@ -21,10 +21,15 @@ app.use(express.static("public"));
 app.engine(
   "handlebars",
   exphbs({
-    defaultLayout: "main"
+    defaultLayout: "main",
+    partialsDir  : [
+      //  path to your partials
+      path.join(__dirname, 'views/layouts/partials'),
+  ]
   })
 );
 app.set("view engine", "handlebars");
+
 
 // Routes
 require("./routes/scrapeRoutes")(app);
