@@ -1,0 +1,24 @@
+<div class="article container">
+    {{#if article}}
+    {{#each article}}
+    <div class="collection">
+        <div class="collection-item">
+            <h4>{{this.title}}</h4>
+        <div class="section">
+            <p> {{this.summary}}</p>
+            <a href={{this.link}} target="_blank">{{this.link}}</a>
+        <div class="section">
+            <button type="button" class="btn btn-small save" data-id={{this._id}}>Save Article</button>
+        </div>
+        </div>
+        </div>
+    </div>
+    {{/each}}
+    {{else}}
+    <div class="articles container">
+        <h4 class="center-align">Need something to go with your morning cup of coffee?</h4>
+        <p class="center-align">Click on the Scrape button above and let's get drinking!</p>
+    </div>
+</div>
+{{/if}}
+</div>
