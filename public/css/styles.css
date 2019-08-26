@@ -6,4 +6,19 @@
 
   main {
     flex: 1 0 auto;
+    background-image: url("/img/photo-1447933601403-0c6688de566e.jpeg");
   }
+  footer {
+    min-height: 50px;
+  }
+  .footer-copy {
+    padding-top: 10px;
+  }
+
+nav,
+footer {
+  background-color: #eca1a6;
+}
+.btn {
+  background-color: #eca1a6;
+}

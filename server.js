@@ -31,7 +31,7 @@ app.engine(
 app.set("view engine", "handlebars");
 
 
-// Routes
+// Route
 require("./routes/scrapeRoutes")(app);
 
 app.get("/", function (req, res) {
@@ -48,7 +48,7 @@ app.get("/", function (req, res) {
 // Starting the server, syncing our models 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/coffeeScraper";
 
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true});
 
 
 // Testing the port connection

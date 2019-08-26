@@ -31,8 +31,9 @@ module.exports = function (app) {
             console.log(err);
           });
       });
+      res.redirect ("/")
     });
-    res.redirect("/");
+   
   });
 
   //GET route for showing all the saved articles
@@ -88,7 +89,7 @@ module.exports = function (app) {
   // route for deleting a saved article and its notes
   app.post("/articles/delete/:id", function (req, res) {
     //update the saved boolean
-    db.Article.findOneAndRemove({ "_id": req.params.id }, { "saved": false, "note": [] })
+    db.Article.findOneAndRemove({ "_id": req.params.id })
       .then(function (data) {
         res.json(data);
         console.log("Deleted!")
@@ -98,31 +99,48 @@ module.exports = function (app) {
       })
   });
 
-  // Route for saving/updating an Article's associated Note
-  app.post("/articles/:id", function (req, res) {
-
+  // Routes for saving/updating an Article's associated Note
+  app.post("/notes/:id", function (req, res) {
     // save the new note that gets posted to the Notes collection
     db.Note.create(req.body)
       // then find an article from the req.params.id
       .then(function (dbNote) {
-        return db.Article.findOneAndUpdate({ "_id": req.params.id }, { note: dbNote._id }, { new: true })
-      })
-      .then(function (dbArticle) {
-        res.json(dbArticle);
-      })
-      .catch(function (err) {
+        return db.Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "note": dbNote._id } }, { new: true })
+      }).then(function (dbArticle) {
+        res.json(dbArticle)
+      }).catch(function (err) {
         res.json(err)
       })
   });
 
+  app.put("/notes/:id", function (req, res) {
+    db.Note.update({ "_id": req.params.id }, {
+      $set:
+      {
+        "title": req.body.title,
+        "body": req.body.body
+      }
+    },
+      // When that's done, run this function
+      function (error, update) {
+        // Show any errors
+        if (error) {
+          res.send(error);
+        }
+        // Otherwise, send the result of our update to the browser
+      });
+  })
+
+
   // route for deleting a note
-  app.delete("/notes/:id", function (req, res){
-    db.Note.findOneAndRemove({ "_id": req.params.id }, function (err, dbNote) {
+  app.delete("/notes/:noteid", function (req, res) {
+    db.Note.findOneAndRemove({ "_id": req.params.noteid }, function (err, dbNote) {
       if (err) {
         console.log(err);
       } else {
-        return db.Article.findOneAndUpdate({ "_id": req.params.id}, {$pull: {"note": req.params.note_id}});
+        res.json(dbNote)
       }
-    })
-  });
+    });
+  })
 }
+
